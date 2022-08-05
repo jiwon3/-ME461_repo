@@ -17,14 +17,14 @@ end
 hex_str = 'CC55'; % header
 char_str = char(sscanf(hex_str,'%2X').');
 
-s = serial(comport);
-
-set(s,'BaudRate',115200);
+% s = serial(comport);
+s = serialport(comport,115200);
+% set(s,'BaudRate',115200);
 s.InputBufferSize = 150000;
 fopen(s);
 fwrite(s,char_str);
 
-pause(3); 
-fclose(s);
-delete(s)
+pause(2); 
+%fclose(s);
+%delete(s)
 clear s

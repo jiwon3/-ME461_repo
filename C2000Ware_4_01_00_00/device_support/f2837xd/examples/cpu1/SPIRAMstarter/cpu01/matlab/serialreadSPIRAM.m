@@ -11,8 +11,9 @@ if (testifcom(comport) == 0)
     exception = MException('MATLAB:ComportNotFound','COM Port not found.');
     throw(exception);
 end
-s = serial(comport);
-set(s,'BaudRate',115200);
+%s = serial(comport);
+s = serialport(comport,115200);
+%set(s,'BaudRate',115200);
 s.InputBufferSize = 150000;
 fopen(s);
 % s = comport;
@@ -72,6 +73,6 @@ hex_str = 'BB'; %end character for reading new a new packet
 char_str = char(sscanf(hex_str,'%2X').');
 fwrite(s,char_str);
 
-fclose(s)
-delete(s)
+%fclose(s)
+%delete(s)
 clear s
