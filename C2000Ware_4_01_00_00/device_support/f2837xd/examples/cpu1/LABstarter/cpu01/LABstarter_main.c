@@ -244,7 +244,7 @@ void main(void)
     // found in F2837xD_CpuTimers.c
     InitCpuTimers();
 
-    // Configure CPU-Timer 0, 1, and 2 to interrupt every second:
+    // Configure CPU-Timer 0, 1, and 2 to interrupt every given period:
     // 200MHz CPU Freq,                       Period (in uSeconds)
     ConfigCpuTimer(&CpuTimer0, LAUNCHPAD_CPU_FREQUENCY, 10000);
     ConfigCpuTimer(&CpuTimer1, LAUNCHPAD_CPU_FREQUENCY, 20000);
