@@ -256,9 +256,10 @@ void main(void)
     CpuTimer2Regs.TCR.all = 0x4000;
 
     init_serialSCIA(&SerialA,115200);
-//	  init_serial(&SerialB,115200);
-//    init_serial(&SerialC,115200);
-//    init_serial(&SerialD,115200);
+    //    init_serialSCIB(&SerialB,115200);
+    //    init_serialSCIC(&SerialC,115200);
+    //    init_serialSCID(&SerialD,115200);
+
 
     // Enable CPU int1 which is connected to CPU-Timer 0, CPU int13
     // which is connected to CPU-Timer 1, and CPU int 14, which is connected
