@@ -246,11 +246,9 @@ void main(void)
 
     // Configure CPU-Timer 0, 1, and 2 to interrupt every given period:
     // 200MHz CPU Freq,                       Period (in uSeconds)
-
-    //change the last parameter to change the period of timers
-    ConfigCpuTimer(&CpuTimer0, LAUNCHPAD_CPU_FREQUENCY, 70000); //changed to 70000 to make red LED blink slower
+    ConfigCpuTimer(&CpuTimer0, LAUNCHPAD_CPU_FREQUENCY, 10000);
     ConfigCpuTimer(&CpuTimer1, LAUNCHPAD_CPU_FREQUENCY, 20000);
-    ConfigCpuTimer(&CpuTimer2, LAUNCHPAD_CPU_FREQUENCY, 100000); //changed to 100000 to make blue LED blink slower
+    ConfigCpuTimer(&CpuTimer2, LAUNCHPAD_CPU_FREQUENCY, 40000); //Timer 2 at the period of 40000 uSeconds
 
     // Enable CpuTimer Interrupt bit TIE
     CpuTimer0Regs.TCR.all = 0x4000;
@@ -286,8 +284,9 @@ void main(void)
     // IDLE loop. Just sit and loop forever (optional):
     while(1)
     {
-        if (UARTPrint == 1 ) {
+        if (UARTPrint == 1 ) { //Check the if statement in cpu timer 2 to see that UARTPrint is set to one every 2 seconds.
 				serial_printf(&SerialA,"Num Timer2:%ld Num SerialRX: %ld\r\n",CpuTimer2.InterruptCount,numRXA);
+				// The function prints onto serial terminal every 2 seconds
             UARTPrint = 0;
         }
     }
@@ -334,7 +333,8 @@ __interrupt void cpu_timer0_isr(void)
     }
 
 	// Blink LaunchPad Red LED
-    GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+    //GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
+    // Commented out to enable a and b inputs toggling on and off the red LED.
 
     // Acknowledge this interrupt to receive more interrupts from group 1
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
@@ -360,5 +360,6 @@ __interrupt void cpu_timer2_isr(void)
 	
 	if ((CpuTimer2.InterruptCount % 50) == 0) {
 		UARTPrint = 1;
+		// UARTPrint is set to 1 every 50 times the interrupt function is called. This means that UARTPrint=1 every 40000us*50 = 2s.
 	}
 }
