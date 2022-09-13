@@ -1,0 +1,5 @@
+2022/09/13-15:50:44.074 311c Log #3: 1 ops saved to Table #4 OK
+2022/09/13-15:50:44.079 311c Archiving C:\jiwon3\ME461_repo\workspace\Project1\.jxbrowser.userdata\Default\Site Characteristics Database/000003.log: OK
+2022/09/13-15:50:44.079 311c Table #4: 1 entries OK
+2022/09/13-15:50:44.082 311c Archiving C:\jiwon3\ME461_repo\workspace\Project1\.jxbrowser.userdata\Default\Site Characteristics Database/MANIFEST-000001: OK
+2022/09/13-15:50:44.089 311c **** Repaired leveldb C:\jiwon3\ME461_repo\workspace\Project1\.jxbrowser.userdata\Default\Site Characteristics Database; recovered 1 files; 130 bytes. Some data may have been lost. ****
