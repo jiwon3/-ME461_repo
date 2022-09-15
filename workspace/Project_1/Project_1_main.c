@@ -303,10 +303,18 @@ void main(void)
             time = timeint*0.25;
             sinvalue = ampl*sin(2*PI*frequency*time) + offset;
 
+            // Use the saturate function to saturate when the modulus of sine value is larger than 2.65.
             satvalue = saturate(sinvalue, 2.65);
 
+            // Print the global variables using the right format that signifies the data type of each value.
             serial_printf(&SerialA,"Timeint: %ld Time: %.2f sec  Input: %.3f SatOut: %.2f  \r\n", timeint, time, sinvalue, satvalue);
-            serial_printf(&SerialA, "int1: %d int2: %d int1: %d int3: %d \r\n", int1, int2, int1, int3);
+            
+            // Use %ld for 32-bit integer and %d for 16-bit integer. 
+            // When %ld is used for a 16-bit integer, the system reads 32 bits (16bits from a previous number and 16 bits from the current number).
+            // This leads the value to be very large (when the previous number is a nonzero value).
+            serial_printf(&SerialA, "int1: %ld int2: %d int1: %ld int3: %d \r\n", int1, int2, int1, int3);
+            
+
             UARTPrint = 0; //This must be set back to 0 in order to restart incrementing from 0 to 50.
         }
     }
@@ -379,7 +387,8 @@ __interrupt void cpu_timer2_isr(void)
 
     if ((CpuTimer2.InterruptCount % 5) == 0) { //changed the number from 50 to 5 to get the period of 250ms. 50ms * 5 = 250ms
         UARTPrint = 1;
-
+    
+    // Change the integers each time the interrupt function is called
     int1 += 1;
     int2 += 2;
     int3 += 3;
