@@ -55,93 +55,93 @@ void main(void)
     InitSysCtrl();
 
     InitGpio();
-	
-	// Blue LED on LaunchPad
+
+    // Blue LED on LaunchPad
     GPIO_SetupPinMux(31, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(31, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO31 = 1;
 
-	// Red LED on LaunchPad
+    // Red LED on LaunchPad
     GPIO_SetupPinMux(34, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(34, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPBSET.bit.GPIO34 = 1;
 
-	// LED1 and PWM Pin
+    // LED1 and PWM Pin
     GPIO_SetupPinMux(22, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(22, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO22 = 1;
-	
-	// LED2
+
+    // LED2
     GPIO_SetupPinMux(94, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(94, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPCCLEAR.bit.GPIO94 = 1;
 
-	// LED3
+    // LED3
     GPIO_SetupPinMux(95, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(95, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPCCLEAR.bit.GPIO95 = 1;
 
-	// LED4
+    // LED4
     GPIO_SetupPinMux(97, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(97, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPDCLEAR.bit.GPIO97 = 1;
 
-	// LED5
+    // LED5
     GPIO_SetupPinMux(111, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(111, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPDCLEAR.bit.GPIO111 = 1;
 
-	// LED6
+    // LED6
     GPIO_SetupPinMux(130, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(130, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO130 = 1;
 
-	// LED7	
+    // LED7
     GPIO_SetupPinMux(131, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(131, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO131 = 1;
 
-	// LED8
+    // LED8
     GPIO_SetupPinMux(25, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(25, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO25 = 1;
 
-	// LED9
+    // LED9
     GPIO_SetupPinMux(26, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(26, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO26 = 1;
 
-	// LED10
+    // LED10
     GPIO_SetupPinMux(27, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(27, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPACLEAR.bit.GPIO27 = 1;
 
-	// LED11	
+    // LED11
     GPIO_SetupPinMux(60, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(60, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPBCLEAR.bit.GPIO60 = 1;
 
-	// LED12	
+    // LED12
     GPIO_SetupPinMux(61, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(61, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;
 
-	// LED13
+    // LED13
     GPIO_SetupPinMux(157, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(157, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO157 = 1;
 
-	// LED14
+    // LED14
     GPIO_SetupPinMux(158, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(158, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO158 = 1;
-	
-	// LED15
+
+    // LED15
     GPIO_SetupPinMux(159, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(159, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPECLEAR.bit.GPIO159 = 1;
 
-	// LED16
+    // LED16
     GPIO_SetupPinMux(160, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(160, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPFCLEAR.bit.GPIO160 = 1;
@@ -156,7 +156,7 @@ void main(void)
     GPIO_SetupPinOptions(1, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO1 = 1;
 
-	//SPIRAM  CS  Chip Select
+    //SPIRAM  CS  Chip Select
     GPIO_SetupPinMux(19, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(19, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO19 = 1;
@@ -175,17 +175,17 @@ void main(void)
     GPIO_SetupPinMux(9, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(9, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPASET.bit.GPIO9 = 1;
-	
+
     //MPU9250  CS  Chip Select
     GPIO_SetupPinMux(66, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(66, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPCSET.bit.GPIO66 = 1;
-	
-	//WIZNET  CS  Chip Select
+
+    //WIZNET  CS  Chip Select
     GPIO_SetupPinMux(125, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(125, GPIO_OUTPUT, GPIO_PUSHPULL);
     GpioDataRegs.GPDSET.bit.GPIO125 = 1;
-	
+
     //PushButton 1
     GPIO_SetupPinMux(4, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(4, GPIO_INPUT, GPIO_PULLUP);
@@ -201,8 +201,8 @@ void main(void)
     //PushButton 4
     GPIO_SetupPinMux(7, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(7, GPIO_INPUT, GPIO_PULLUP);
-	
-	//Joy Stick Pushbutton
+
+    //Joy Stick Pushbutton
     GPIO_SetupPinMux(8, GPIO_MUX_CPU1, 0);
     GPIO_SetupPinOptions(8, GPIO_INPUT, GPIO_PULLUP);
 
@@ -235,11 +235,11 @@ void main(void)
     PieVectTable.TIMER1_INT = &cpu_timer1_isr;
     PieVectTable.TIMER2_INT = &cpu_timer2_isr;
     PieVectTable.SCIA_RX_INT = &RXAINT_recv_ready;
-	PieVectTable.SCIB_RX_INT = &RXBINT_recv_ready;
+    PieVectTable.SCIB_RX_INT = &RXBINT_recv_ready;
     PieVectTable.SCIC_RX_INT = &RXCINT_recv_ready;
     PieVectTable.SCID_RX_INT = &RXDINT_recv_ready;
     PieVectTable.SCIA_TX_INT = &TXAINT_data_sent;
-	PieVectTable.SCIB_TX_INT = &TXBINT_data_sent;
+    PieVectTable.SCIB_TX_INT = &TXBINT_data_sent;
     PieVectTable.SCIC_TX_INT = &TXCINT_data_sent;
     PieVectTable.SCID_TX_INT = &TXDINT_data_sent;
 
@@ -280,19 +280,19 @@ void main(void)
 
     // Enable TINT0 in the PIE: Group 1 interrupt 7
     PieCtrlRegs.PIEIER1.bit.INTx7 = 1;
-	// Enable SWI in the PIE: Group 12 interrupt 9
+    // Enable SWI in the PIE: Group 12 interrupt 9
     PieCtrlRegs.PIEIER12.bit.INTx9 = 1;
-	
+
     // Enable global Interrupts and higher priority real-time debug events
     EINT;  // Enable Global interrupt INTM
     ERTM;  // Enable Global realtime interrupt DBGM
 
-    
+
     // IDLE loop. Just sit and loop forever (optional):
     while(1)
     {
         if (UARTPrint == 1 ) {
-				serial_printf(&SerialA,"Num Timer2:%ld Num SerialRX: %ld\r\n",CpuTimer2.InterruptCount,numRXA);
+            serial_printf(&SerialA,"Num Timer2:%ld Num SerialRX: %ld\r\n",CpuTimer2.InterruptCount,numRXA);
             UARTPrint = 0;
         }
 
@@ -309,18 +309,18 @@ void main(void)
 __interrupt void SWI_isr(void) {
 
     // These three lines of code allow SWI_isr, to be interrupted by other interrupt functions
-	// making it lower priority than all other Hardware interrupts.  
-	PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
+    // making it lower priority than all other Hardware interrupts.
+    PieCtrlRegs.PIEACK.all = PIEACK_GROUP12;
     asm("       NOP");                    // Wait one cycle
     EINT;                                 // Clear INTM to enable interrupts
-	
-	
-	
+
+
+
     // Insert SWI ISR Code here.......
-	
-	
+
+
     numSWIcalls++;
-    
+
     DINT;
 
 }
@@ -332,9 +332,9 @@ __interrupt void cpu_timer0_isr(void)
 
     numTimer0calls++;
 
-//    if ((numTimer0calls%50) == 0) {
-//        PieCtrlRegs.PIEIFR12.bit.INTx9 = 1;  // Manually cause the interrupt for the SWI
-//    }
+    //    if ((numTimer0calls%50) == 0) {
+    //        PieCtrlRegs.PIEIFR12.bit.INTx9 = 1;  // Manually cause the interrupt for the SWI
+    //    }
 
     if ((numTimer0calls%250) == 0) {
         displayLEDletter(LEDdisplaynum);
@@ -344,7 +344,7 @@ __interrupt void cpu_timer0_isr(void)
         }
     }
 
-	// Blink LaunchPad Red LED
+    // Blink LaunchPad Red LED
     GpioDataRegs.GPBTOGGLE.bit.GPIO34 = 1;
 
     // Acknowledge this interrupt to receive more interrupts from group 1
@@ -362,24 +362,24 @@ __interrupt void cpu_timer0_isr(void)
 // cpu_timer1_isr - CPU Timer1 ISR
 __interrupt void cpu_timer1_isr(void)
 {
-	
-	
+
+
     CpuTimer1.InterruptCount++;
 }
 
 // cpu_timer2_isr CPU Timer2 ISR
 __interrupt void cpu_timer2_isr(void)
 {
-	
-	
-	// Blink LaunchPad Blue LED
+
+
+    // Blink LaunchPad Blue LED
     GpioDataRegs.GPATOGGLE.bit.GPIO31 = 1;
 
     CpuTimer2.InterruptCount++;
-	
-	if ((CpuTimer2.InterruptCount % 50) == 0) {
-		UARTPrint = 1;
-	}
+
+    if ((CpuTimer2.InterruptCount % 50) == 0) {
+        UARTPrint = 1;
+    }
 }
 
 uint16_t WriteDAN777RCServo(uint16_t Cmd16bit_1, uint16_t Cmd16bit_2) {
@@ -402,8 +402,7 @@ uint16_t WriteDAN777RCServo(uint16_t Cmd16bit_1, uint16_t Cmd16bit_2) {
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
     I2cbRegs.I2CSAR.all = 0x25; // I2C address of DAN777
     I2cbRegs.I2CCNT = 5; //Num Values plus Start Register 4 + 1
-    I2cbRegs.I2CDXR.all = 4; // First need to transfer the Register value
-    // to start writing data
+    I2cbRegs.I2CDXR.all = 4; // First need to transfer the Register value to start writing data
     // I2C in master mode (MST), I2C is in transmit mode (TRX) with start and stop
     I2cbRegs.I2CMDR.all = 0x6E20;
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
@@ -431,15 +430,83 @@ uint16_t WriteDAN777RCServo(uint16_t Cmd16bit_1, uint16_t Cmd16bit_2) {
     return 0;
 }
 
-uint16_t WriteDS1388Z(uint16_t *second,uint16_t *minute,uint16_t *hour,uint16_t *day,uint16_t *date,uint16_t *month,uint16_t *year) {
-    uint16_t Cmd1LSB = 0;
-    uint16_t Cmd1MSB = 0;
-    uint16_t Cmd2LSB = 0;
-    uint16_t Cmd2MSB = 0;
-    Cmd1LSB = Cmd16bit_1 & 0xFF; //Bottom 8 bits of command
-    Cmd1MSB = (Cmd16bit_1 >> 8) & 0xFF; //Top 8 bits of command
-    Cmd2LSB = Cmd16bit_2 & 0xFF; //Bottom 8 bits of command
-    Cmd2MSB = (Cmd16bit_2 >> 8) & 0xFF; //Top 8 bits of command
+
+//Read Two 16 Bit values from I2C Slave CHIPXYZ starting at CHIPXYZ's register 10
+//Notice the Rvalue1 and Rvalue2 passed as pointers (passed by reference)
+//So pass address of uint16_t variable when using this function for example:
+// uint16_t Rval1 = 0;
+// uint16_t Rval2 = 0;
+// err = ReadTwo16BitValuesFromCHIPXYZ(&Rval1,&Rval2);
+// This allows Rval1 and Rval2 to be changed inside the function and return
+// the values read inside the function.
+uint16_t ReadDAN777ADC(uint16_t *Rvalue1,uint16_t *Rvalue2) {
+    uint16_t Val1LSB = 0;
+    uint16_t Val1MSB = 0;
+    uint16_t Val2LSB = 0;
+    uint16_t Val2MSB = 0;
+    DELAY_US(200); // Allow time for I2C to finish up previous commands. It pains me to have this
+    // delay here but I have not had time to figure out what status bit to poll on to
+    // to check if the I2C peripheral is ready of the next command. I have tried the busy
+    // bit but that gave me some issues especially at startup. This would be a great
+    // choice for a part of your final project if you would like to learn more about I2C.
+    if (I2cbRegs.I2CSTR.bit.BB == 1) {
+        return 2;
+    }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CSAR.all = 0x25; // I2C address of DAN777
+    I2cbRegs.I2CCNT = 1; // Just Sending Address to start reading from
+    I2cbRegs.I2CDXR.all = 0; // Start Reading at this Register location
+    // I2C in master mode (MST), I2C is in transmit mode (TRX) with start
+    I2cbRegs.I2CMDR.all = 0x6620;
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CSAR.all = 0x25; // I2C address of ChipXYZ
+    I2cbRegs.I2CCNT = 4;
+    // I2C in master mode (MST), TRX=0, receive mode start stop
+    I2cbRegs.I2CMDR.all = 0x6C20; // Reissuing another Start with Read
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
+    Val1LSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
+    Val1MSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
+    Val2LSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
+    ME461 7 Project #3
+    Val2MSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    // After this read since I2CCNT = 0
+    // A Stop condition will be issued
+    *Rvalue1 = (Val1MSB << 8) | (Val1LSB & 0xFF);
+    *Rvalue2 = (Val2MSB << 8) | (Val2LSB & 0xFF);
+    return 0;
+}
+
+uint16_t WriteDS1388(uint16_t second,uint16_t minute,uint16_t hour,uint16_t day,uint16_t date,uint16_t month,uint16_t year) {
+
+    uint8_t second = second & 0xFF;
+    uint8_t minute = minute & 0xFF;
+    uint8_t hour = hour & 0xFF;
+    uint8_t day = day & 0xFF;
+    uint8_t date = date & 0xFF;
+    uint8_t month = month & 0xFF;
+    uint8_t year = year & 0xFF
+
     DELAY_US(200); // Allow time for I2C to finish up previous commands. It pains me to have this
     // delay here but I have not had time to figure out what status bit to poll on to
     // to check if the I2C peripheral is ready of the next command. I have tried the busy
@@ -449,34 +516,51 @@ uint16_t WriteDS1388Z(uint16_t *second,uint16_t *minute,uint16_t *hour,uint16_t 
         return 2; // to Exit and try again next sample
     } // This should not happen too often
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CSAR.all = 0x25; // I2C address of DAN777
-    I2cbRegs.I2CCNT = 5; //Num Values plus Start Register 4 + 1
-    I2cbRegs.I2CDXR.all = 4; // First need to transfer the Register value
+    I2cbRegs.I2CSAR.all = 0x68; // I2C address of DS1388
+    I2cbRegs.I2CCNT = 8; //Num Values plus Start Register 7 + 1
+    I2cbRegs.I2CDXR.all = 1; // First need to transfer the Register value
     // to start writing data
     // I2C in master mode (MST), I2C is in transmit mode (TRX) with start and stop
     I2cbRegs.I2CMDR.all = 0x6E20;
+
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = Cmd1LSB; // Write Command 1 LSB
-    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgement
+    I2cbRegs.I2CDXR.all = second; // Write Command 1 LSB
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = Cmd1MSB; // Write Command 1 MSB
-    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgement
+    I2cbRegs.I2CDXR.all = minute; // Write Command 1 MSB
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = Cmd2LSB; // Write Command 2 LSB
-    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgement
+    I2cbRegs.I2CDXR.all = hour; // Write Command 2 LSB
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = Cmd2MSB; // Write Command 2 MSB
+    I2cbRegs.I2CDXR.all = day; // Write Command 2 MSB
     // After this write since I2CCNT = 0
     // A Stop condition will be issued
     if (I2cbRegs.I2CSTR.bit.NACK == 1){
         return 3;
     }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CDXR.all = date; // Write Command 1 LSB
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
+        return 3; // This should not happen
+    }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CDXR.all = month; // Write Command 1 LSB
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
+        return 3; // This should not happen
+    }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CDXR.all = year; // Write Command 1 LSB
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
+        return 3; // This should not happen
+    }
+
     return 0;
 }
 
@@ -488,64 +572,85 @@ uint16_t WriteDS1388Z(uint16_t *second,uint16_t *minute,uint16_t *hour,uint16_t 
 // err = ReadTwo16BitValuesFromCHIPXYZ(&Rval1,&Rval2);
 // This allows Rval1 and Rval2 to be changed inside the function and return
 // the values read inside the function.
- uint16_t ReadDS1388Z(uint16_t *second,uint16_t *minute,uint16_t *hour,uint16_t *day,uint16_t *date,uint16_t *month,uint16_t *year) {
- uint16_t Val1LSB = 0;
- uint16_t Val1MSB = 0;
- uint16_t Val2LSB = 0;
- uint16_t Val2MSB = 0;
- DELAY_US(200); // Allow time for I2C to finish up previous commands. It pains me to have this
- // delay here but I have not had time to figure out what status bit to poll on to
- // to check if the I2C peripheral is ready of the next command. I have tried the busy
- // bit but that gave me some issues especially at startup. This would be a great
- // choice for a part of your final project if you would like to learn more about I2C.
 
- if (I2cbRegs.I2CSTR.bit.BB == 1) {
-  return 2;
-  }
-  while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-  I2cbRegs.I2CSAR.all = 0x3A; // I2C address of ChipXYZ
-  I2cbRegs.I2CCNT = 1; // Just Sending Address to start reading from
-  I2cbRegs.I2CDXR.all = 10; // Start Reading at this Register location
-  // I2C in master mode (MST), I2C is in transmit mode (TRX) with start
-  I2cbRegs.I2CMDR.all = 0x6620;
-  if (I2cbRegs.I2CSTR.bit.NACK == 1) {
-  return 3;
-  }
-  while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-  I2cbRegs.I2CSAR.all = 0x3A; // I2C address of ChipXYZ
-  I2cbRegs.I2CCNT = 4;
-  // I2C in master mode (MST), TRX=0, receive mode start stop
-  I2cbRegs.I2CMDR.all = 0x6C20; // Reissuing another Start with Read
-  if (I2cbRegs.I2CSTR.bit.NACK == 1) {
-  return 3;
-  }
-  while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
-  Val1LSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
-  if (I2cbRegs.I2CSTR.bit.NACK == 1) {
-  return 3;
-  }
-  while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
-  Val1MSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
-  if (I2cbRegs.I2CSTR.bit.NACK == 1) {
-  return 3;
-  }
-  while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
-  Val2LSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
-  if (I2cbRegs.I2CSTR.bit.NACK == 1) {
-  return 3;
-  }
-  while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
+uint16_t ReadDS1388Z(uint16_t *second,uint16_t *minute,uint16_t *hour,uint16_t *day,uint16_t *date,uint16_t *month,uint16_t *year) {
 
-  Val2MSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
-   if (I2cbRegs.I2CSTR.bit.NACK == 1) {
-   return 3;
-   }
-   // After this read since I2CCNT = 0
-   // A Stop condition will be issued
-   *Rvalue1 = (Val1MSB << 8) | (Val1LSB & 0xFF);
-   *Rvalue2 = (Val2MSB << 8) | (Val2LSB & 0xFF);
-   return 0;
-  }
+
+    DELAY_US(200); // Allow time for I2C to finish up previous commands. It pains me to have this
+    // delay here but I have not had time to figure out what status bit to poll on to
+    // to check if the I2C peripheral is ready of the next command. I have tried the busy
+    // bit but that gave me some issues especially at startup. This would be a great
+    // choice for a part of your final project if you would like to learn more about I2C.
+
+    if (I2cbRegs.I2CSTR.bit.BB == 1) {
+        return 2;
+    }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CSAR.all = 0x68; // I2C address of DS1388
+    I2cbRegs.I2CCNT = 1;
+    I2cbRegs.I2CDXR.all = 1; // Start Reading at this Register location
+    // I2C in master mode (MST), I2C is in transmit mode (TRX) with start
+    I2cbRegs.I2CMDR.all = 0x6620;
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
+    I2cbRegs.I2CSAR.all = 0x68; // I2C address of DS1388
+    I2cbRegs.I2CCNT = 7;
+    // I2C in master mode (MST), TRX=0, receive mode start stop
+    I2cbRegs.I2CMDR.all = 0x6C20; // Reissuing another Start with Read
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *second = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *minute = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *hour= I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *day = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *date = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *month = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Received 8 bit value
+    *year = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
+    if (I2cbRegs.I2CSTR.bit.NACK == 1) {
+        return 3;
+    }
+    // After this read since I2CCNT = 0
+    // A Stop condition will be issued
+
+    *second = ((*second>>4)&(0xFF))*10 + (*second)&(0xFF);
+    *minute = ((*minute>>4)&(0xFF))*10 + (*minute)&(0xFF);
+    *hour = ((*hour>>4)&(0x03))*10 + (*hour)&(0xFF);
+    *day = (*day)&(0xFF);
+    *date = ((*date>>4)&(0xFF))*10 + (*date)&(0xFF);
+    *month = ((*month>>4)&(0xFF))*10 + (*month)&(0xFF);
+    *year = ((*year>>4)&(0xFF))*10 + (*year)&(0xFF);
+
+    return 0
+
+}
 
 
 
