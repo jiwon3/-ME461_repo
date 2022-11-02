@@ -39,8 +39,31 @@ uint32_t numSWIcalls = 0;
 extern uint32_t numRXA;
 uint16_t UARTPrint = 0;
 uint16_t LEDdisplaynum = 0;
+
 uint16_t I2C_count = 0;
 uint16_t I2C_Print = 0;
+uint8_t servo_up = 1;
+int8_t servo_count = 0;
+uint16_t adc1 =0;
+uint16_t adc2 =0;
+float voltage1 =0;
+float voltage2 =0;
+
+uint16_t second_read =0;
+uint16_t minute_read =0;
+uint16_t hour_read =0;
+uint16_t day_read =0;
+uint16_t date_read =0;
+uint16_t month_read =0;
+uint16_t year_read =0;
+
+uint16_t * second_write = 0;
+uint16_t * minute_write = 0;
+uint16_t * hour_write = 0;
+uint16_t * day_write = 0;
+uint16_t * date_write = 0;
+uint16_t * month_write = 0;
+uint16_t * year_write = 0;
 
 
 uint16_t WriteDAN777RCServo(uint16_t RC1, uint16_t RC2);
@@ -292,15 +315,11 @@ void main(void)
     while(1)
     {
         if (UARTPrint == 1 ) {
-            serial_printf(&SerialA,"Num Timer2:%ld Num SerialRX: %ld\r\n",CpuTimer2.InterruptCount,numRXA);
+            serial_printf(&SerialA,"%c %d/%d/%d %d:%d:%d /r/n ", day_print, month_read, date_read, year_read, hour_read, minute_read, second_read);
             UARTPrint = 0;
+            // can you print strings with %c ?
         }
 
-        if (I2C_Print==1){
-            WriteDAN777RCServo();
-            ReadDAN777ADC();
-            ReadDS1388Z();
-        }
     }
 }
 
@@ -350,21 +369,53 @@ __interrupt void cpu_timer0_isr(void)
     // Acknowledge this interrupt to receive more interrupts from group 1
     PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 
-    I2C_count ++;
 
-    if (I2C_count == 20){
-        I2C_Print = 1;
-        I2C_count = 0;
-    }
 
 }
 
 // cpu_timer1_isr - CPU Timer1 ISR
 __interrupt void cpu_timer1_isr(void)
 {
-
-
     CpuTimer1.InterruptCount++;
+
+    if ((CpuTimer1.InterruptCount++ %5) == 0){
+        UARTPrint =1;
+    }
+
+    if (servo_up == 1){
+        servo_count ++ 5;
+    }
+    else{
+        servo_count -- 5;
+    }
+
+    if (servo_count >= 90){
+        servo_up = 0;
+    }
+
+    if (servo_count <= -90){
+        servo_up = 1;
+    }
+
+    uint16_t servo_1 = 3200 + servo_count*2000/90;
+    uint16_t servo_2 = 3200 + servo_count*2000/90;
+
+    // Question: Do I have to convert to float?
+    // Question: How can I convert back to int?
+
+    uint16_t check_write_DAN = WriteDAN777RCServo(servo_1, servo_2);
+    uint16_t check_read_DAN = ReadDAN777ADC(adc1, adc2);
+    uint16_t check_read_DS = ReadDS1388Z(*second_read, *minute_read, *hour_read, *day_read, *date_read, *month_read, *year_read);
+
+    voltage1 = adc1*3.3/1023.0;
+    voltage2 = adc1*3.3/1023.0;
+
+    //Question: Does float have enough space to store the 16-bit integer converted? What if the MSB is shown in stead of LSB?
+
+    const char *day[] = {'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'};
+    char day_print = *day[*day_read]
+    //Question: Is this the right way of printing strings?
+
 }
 
 // cpu_timer2_isr CPU Timer2 ISR
@@ -378,7 +429,7 @@ __interrupt void cpu_timer2_isr(void)
     CpuTimer2.InterruptCount++;
 
     if ((CpuTimer2.InterruptCount % 50) == 0) {
-        UARTPrint = 1;
+        // UARTPrint = 1;
     }
 }
 
@@ -405,19 +456,20 @@ uint16_t WriteDAN777RCServo(uint16_t Cmd16bit_1, uint16_t Cmd16bit_2) {
     I2cbRegs.I2CDXR.all = 4; // First need to transfer the Register value to start writing data
     // I2C in master mode (MST), I2C is in transmit mode (TRX) with start and stop
     I2cbRegs.I2CMDR.all = 0x6E20;
+
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
     I2cbRegs.I2CDXR.all = Cmd1LSB; // Write Command 1 LSB
-    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgement
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
     I2cbRegs.I2CDXR.all = Cmd1MSB; // Write Command 1 MSB
-    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgement
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
     I2cbRegs.I2CDXR.all = Cmd2LSB; // Write Command 2 LSB
-    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgement
+    if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
@@ -485,7 +537,6 @@ uint16_t ReadDAN777ADC(uint16_t *Rvalue1,uint16_t *Rvalue2) {
         return 3;
     }
     while(!I2cbRegs.I2CSTR.bit.RRDY); //Poll until I2C has Recieved 8 bit value
-    ME461 7 Project #3
     Val2MSB = I2cbRegs.I2CDRR.all; // Read CHIPXYZ
     if (I2cbRegs.I2CSTR.bit.NACK == 1) {
         return 3;
@@ -499,13 +550,13 @@ uint16_t ReadDAN777ADC(uint16_t *Rvalue1,uint16_t *Rvalue2) {
 
 uint16_t WriteDS1388(uint16_t second,uint16_t minute,uint16_t hour,uint16_t day,uint16_t date,uint16_t month,uint16_t year) {
 
-    uint8_t second = second & 0xFF;
-    uint8_t minute = minute & 0xFF;
-    uint8_t hour = hour & 0xFF;
-    uint8_t day = day & 0xFF;
-    uint8_t date = date & 0xFF;
-    uint8_t month = month & 0xFF;
-    uint8_t year = year & 0xFF
+    uint16_t second_send = ((second/10)<<4) | (second%10);
+    uint16_t minute_send = ((minute/10)<<4) | (minute%10);
+    uint16_t hour_send = hour = ((hour/10)<<4) | (hour%10);
+    uint16_t day_send = day;
+    uint16_t date_send = ((date/10)<<4) | (date%10);
+    uint16_t month_send = ((month/10)<<4) | (month%10);
+    uint16_t year_send = ((year/10)<<4) | (year%10);
 
     DELAY_US(200); // Allow time for I2C to finish up previous commands. It pains me to have this
     // delay here but I have not had time to figure out what status bit to poll on to
@@ -524,39 +575,39 @@ uint16_t WriteDS1388(uint16_t second,uint16_t minute,uint16_t hour,uint16_t day,
     I2cbRegs.I2CMDR.all = 0x6E20;
 
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = second; // Write Command 1 LSB
+    I2cbRegs.I2CDXR.all = second_send; // Write Command 1 LSB
     if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = minute; // Write Command 1 MSB
+    I2cbRegs.I2CDXR.all = minute_send; // Write Command 1 MSB
     if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = hour; // Write Command 2 LSB
+    I2cbRegs.I2CDXR.all = hour_send; // Write Command 2 LSB
     if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = day; // Write Command 2 MSB
+    I2cbRegs.I2CDXR.all = day_send; // Write Command 2 MSB
     // After this write since I2CCNT = 0
     // A Stop condition will be issued
     if (I2cbRegs.I2CSTR.bit.NACK == 1){
         return 3;
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = date; // Write Command 1 LSB
+    I2cbRegs.I2CDXR.all = date_send; // Write Command 1 LSB
     if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = month; // Write Command 1 LSB
+    I2cbRegs.I2CDXR.all = month_send; // Write Command 1 LSB
     if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
     while(!I2cbRegs.I2CSTR.bit.XRDY); //Poll until I2C ready to Transmit
-    I2cbRegs.I2CDXR.all = year; // Write Command 1 LSB
+    I2cbRegs.I2CDXR.all = year_send; // Write Command 1 LSB
     if (I2cbRegs.I2CSTR.bit.NACK == 1){ // Check for No Acknowledgment
         return 3; // This should not happen
     }
@@ -647,6 +698,7 @@ uint16_t ReadDS1388Z(uint16_t *second,uint16_t *minute,uint16_t *hour,uint16_t *
     *date = ((*date>>4)&(0xFF))*10 + (*date)&(0xFF);
     *month = ((*month>>4)&(0xFF))*10 + (*month)&(0xFF);
     *year = ((*year>>4)&(0xFF))*10 + (*year)&(0xFF);
+
 
     return 0
 
