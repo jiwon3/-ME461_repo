@@ -311,6 +311,7 @@ void main(void)
     ERTM;  // Enable Global realtime interrupt DBGM
 
 
+    uint16_t check_write_DS = WriteDS1388(uint16_t second,uint16_t minute,uint16_t hour,uint16_t day,uint16_t date,uint16_t month,uint16_t year)
     // IDLE loop. Just sit and loop forever (optional):
     while(1)
     {
