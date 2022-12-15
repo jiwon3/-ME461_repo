@@ -585,6 +585,7 @@ extern float w_r;
 extern float x_r;
 extern float y_r;
 extern float phi_r;
+extern int16_t print;
 //This function is called each time a char is received over UARTA.
 //for SerialA
 #ifdef _FLASH
@@ -612,7 +613,7 @@ __interrupt void RXAINT_recv_ready(void)
             Vref = 0;
             turn = 0;
         } else if (RXAdata == 'g') {
-            Vref = 1.1;
+            Vref = 0.15;
             turn = 0;
         } else if (RXAdata == 'n') {
             Vref = 0.3;
@@ -638,6 +639,13 @@ __interrupt void RXAINT_recv_ready(void)
         } else {
             turn = 0;
             Vref = 0.5;
+        }
+
+        if (RXAdata == 'h'){
+            print = 0;
+        }
+        else if (RXAdata == 'i'){
+            print = 1;
         }
 
     }

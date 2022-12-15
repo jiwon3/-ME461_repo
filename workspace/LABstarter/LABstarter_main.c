@@ -154,6 +154,10 @@ float y_r_dot_k_1 =0;
 float x_r_k_1 =0;
 float y_r_k_1 =0;
 
+int16_t print = 1;
+
+float stop = 0;
+
 
 void init_eQEPs(void) {
     // setup eQEP1 pins for input
@@ -238,10 +242,11 @@ __interrupt void SPIB_isr(void){
     gyroXreading = gyroXraw*250.0/32767.0;
     gyroYreading = gyroYraw*250.0/32767.0;
     gyroZreading = gyroZraw*250.0/32767.0;
-
-//    if(accelYreading<-1.5){
-//        Vref = 0;
-//    }
+//
+    if (accelYreading > 6){
+        Vref = 0;
+        stop = accelYreading;
+    }
 
     SpibRegs.SPIFFRX.bit.RXFFOVFCLR = 1; // Clear Overflow flag just in case of an overflow
     SpibRegs.SPIFFRX.bit.RXFFINTCLR = 1; // Clear RX FIFO Interrupt flag so next interrupt will happen
@@ -249,10 +254,11 @@ __interrupt void SPIB_isr(void){
 
     UARTcount ++;
 
-    if (UARTcount == 200){   // the interrupt is called every 1 millisecond. We want the UART to print every 200ms. 200/1 = 200.
+    if (UARTcount == 10){   // the interrupt is called every 1 millisecond. We want the UART to print every 200ms. 200/1 = 200.
         UARTPrint = 1;
         UARTcount =0;
     }
+
     GpioDataRegs.GPCSET.bit.GPIO66 = 1; // Set GPIO66 high to end Slave Select. Now Scope. Later to deselect DAN28027
 
     setEPWM3A(accelXreading);
@@ -561,9 +567,11 @@ void main(void)
     while(1)
     {
         if (UARTPrint == 1 ) {
-
-            serial_printf(&SerialA,"accelX:%.3f accelY: %.3f accelZ:%.3f gyroX:%.3f gyroY: %.3f gyroZ: %.3f \r\n", accelXreading, accelYreading, accelZreading, gyroXreading, gyroYreading, gyroZreading);
+            if(print ==1){
+            //serial_printf(&SerialA,"accelX:%.3f accelY: %.3f accelZ:%.3f gyroX:%.3f gyroY: %.3f gyroZ: %.3f \r\n", accelXreading, accelYreading, accelZreading, gyroXreading, gyroYreading, gyroZreading);
             //serial_printf(&SerialA,"LeftWheel:%.3f RightWheel: %.3f LeftDist: %.3f RightDist: %.3f LeftVel: %.3f RightVel: %.3f x_r: %.3f y_r: %.3f x_r_dot: %.3f y_r_dot: %.3f phi_r: %.3f \r\n", LeftWheel,RightWheel,LeftDist,RightDist,VLeft_K,VRight_K,x_r,y_r,x_r_dot,y_r_dot,phi_r);
+            serial_printf(&SerialA,"accelY: %.3f Vref: %.3f VLeft_K: %.3f VRight_K: %.3f Stopped at: %.3f  \r\n", accelYreading, VLeft_K, VRight_K, stop);
+            }
             UARTPrint = 0;
         }
     }
